@@ -24,23 +24,23 @@ accordingly.
 
 """
 
-FILESYSTEMS = []
+import logging
+
 
 try:
-    from tendril.utils import log
     from tendril.utils import config
 except ImportError:
-    import logging as log
     config = None
 
-logger = log.get_logger("fs_server", log.DEFAULT)
+
+FILESYSTEMS = []
 
 if config:
-    logger.info("Adding Wallet to FILESYSTEMS")
+    logging.info("Adding Wallet to FILESYSTEMS")
     FILESYSTEMS.append(('wallet', config.DOCUMENT_WALLET_ROOT))
-    logger.info("Adding Docstore to FILESYSTEMS")
+    logging.info("Adding Docstore to FILESYSTEMS")
     FILESYSTEMS.append(('docstore', config.DOCSTORE_ROOT))
-    logger.info("Adding Refdocs to FILESYSTEMS")
+    logging.info("Adding Refdocs to FILESYSTEMS")
     FILESYSTEMS.append(('refdocs', config.REFDOC_ROOT))
 
 SERVER_PORT = 1080

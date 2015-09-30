@@ -18,6 +18,9 @@ from twisted.internet import reactor
 from twisted.web.server import Site
 from twisted.web.resource import Resource
 
+import logging
+logging.basicConfig(level=logging.INFO)
+
 
 if __name__ == '__main__':
     root = Resource()

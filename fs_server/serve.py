@@ -23,11 +23,11 @@ filesystems to expose. The exposed filesystems are specified by
 
 """
 
+import logging
 from fs.opener import fsopendir
 from fs.expose.xmlrpc import RPCFSInterface
 
 from config import FILESYSTEMS
-from config import logger
 
 from twisted.web import xmlrpc
 from twisted.web.resource import Resource
@@ -100,7 +100,7 @@ class FSServer(object):
     no root is provided, one is created (returned by :func:`setup()`).
     """
     def __init__(self, root=None):
-        logger.info("Initializing fs_server Resource")
+        logging.info("Initializing fs_server Resource")
         self._filesystems = FILESYSTEMS
         self._endpoints = self._wrap_filesystems()
         self._root = root
@@ -113,7 +113,7 @@ class FSServer(object):
         """
         rval = []
         for filesystem in self._filesystems:
-            logger.info("Wrapping filesystem : {0}".format(filesystem[0]))
+            logging.info("Wrapping filesystem : {0}".format(filesystem[0]))
             rval.append(
                 (filesystem[0], XMLRPCFSEndpoint(fsopendir(filesystem[1])))
             )
@@ -127,10 +127,10 @@ class FSServer(object):
         :returns: the Root of the Resource tree
         """
         if not self._root:
-            logger.info("Creating Site Root")
+            logging.info("Creating Site Root")
             self._root = Resource()
         for endpoint in self._endpoints:
-            logger.info("Adding XML-RPC Resource : " + endpoint[0])
+            logging.info("Adding XML-RPC Resource : " + endpoint[0])
             self._root.putChild(*endpoint)
         return self._root
 
