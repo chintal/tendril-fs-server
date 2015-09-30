@@ -11,8 +11,8 @@ XML-RPC Filesystem Server for Tendril
 
 XML-RPC Filesystem Server using Twisted and Pyfilesystems for Tendril
 
-* Free software: MIT
-* Documentation: https://tendril-fs-server.readthedocs.org.
+* License: MIT
+* Documentation: http://xml-rpc-filesystem-server-for-tendril.readthedocs.org
 
 Features
 --------
