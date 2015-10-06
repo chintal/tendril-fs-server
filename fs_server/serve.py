@@ -23,14 +23,17 @@ filesystems to expose. The exposed filesystems are specified by
 
 """
 
-import logging
 from fs.opener import fsopendir
 from fs.expose.xmlrpc import RPCFSInterface
 
 from config import FILESYSTEMS
+from config import SERVER_PORT
 
 from twisted.web import xmlrpc
 from twisted.web.resource import Resource
+from twisted.web import server
+from twisted.application import internet
+from twisted.python import log
 
 
 class XMLRPCFSEndpoint(xmlrpc.XMLRPC):
@@ -43,7 +46,7 @@ class XMLRPCFSEndpoint(xmlrpc.XMLRPC):
     """
     def __init__(self, fs):
         self._fs_if = RPCFSInterface(fs)
-        xmlrpc.XMLRPC.__init__(self)
+        xmlrpc.XMLRPC.__init__(self, allowNone=True)
 
         self._procedureToCallable = {
             'encode_path': self._fs_if.encode_path,
@@ -100,7 +103,7 @@ class FSServer(object):
     no root is provided, one is created (returned by :func:`setup()`).
     """
     def __init__(self, root=None):
-        logging.info("Initializing fs_server Resource")
+        log.msg("Initializing fs_server Resource")
         self._filesystems = FILESYSTEMS
         self._endpoints = self._wrap_filesystems()
         self._root = root
@@ -113,7 +116,7 @@ class FSServer(object):
         """
         rval = []
         for filesystem in self._filesystems:
-            logging.info("Wrapping filesystem : {0}".format(filesystem[0]))
+            log.msg("Wrapping filesystem : {0}".format(filesystem[0]))
             rval.append(
                 (filesystem[0], XMLRPCFSEndpoint(fsopendir(filesystem[1])))
             )
@@ -127,10 +130,10 @@ class FSServer(object):
         :returns: the Root of the Resource tree
         """
         if not self._root:
-            logging.info("Creating Site Root")
+            log.msg("Creating Site Root")
             self._root = Resource()
         for endpoint in self._endpoints:
-            logging.info("Adding XML-RPC Resource : " + endpoint[0])
+            log.msg("Adding XML-RPC Resource : " + endpoint[0])
             self._root.putChild(*endpoint)
         return self._root
 
@@ -146,3 +149,13 @@ def get_resource(root=None):
     xmlrp_server = FSServer(root)
     root = xmlrp_server.setup()
     return root
+
+
+def get_service():
+    """
+    Return a service containing the resource suitable for creating
+    an application object.
+    """
+    root = get_resource()
+    xmlrpc_factory = server.Site(root)
+    return internet.TCPServer(SERVER_PORT, xmlrpc_factory)

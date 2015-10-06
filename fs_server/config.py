@@ -24,8 +24,7 @@ accordingly.
 
 """
 
-import logging
-
+from twisted.python import log
 
 try:
     from tendril.utils import config
@@ -36,11 +35,11 @@ except ImportError:
 FILESYSTEMS = []
 
 if config:
-    logging.info("Adding Wallet to FILESYSTEMS")
+    log.msg("Adding Wallet to FILESYSTEMS")
     FILESYSTEMS.append(('wallet', config.DOCUMENT_WALLET_ROOT))
-    logging.info("Adding Docstore to FILESYSTEMS")
+    log.msg("Adding Docstore to FILESYSTEMS")
     FILESYSTEMS.append(('docstore', config.DOCSTORE_ROOT))
-    logging.info("Adding Refdocs to FILESYSTEMS")
+    log.msg("Adding Refdocs to FILESYSTEMS")
     FILESYSTEMS.append(('refdocs', config.REFDOC_ROOT))
 
 SERVER_PORT = 1080
