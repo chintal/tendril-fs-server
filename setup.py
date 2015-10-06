@@ -22,7 +22,7 @@ test_requirements = [
 
 setup(
     name='tendril-fs-server',
-    version='0.2.0',
+    version='0.2.1',
     description="XML-RPC Filesystem Server using Twisted and Pyfilesystems for Tendril",
     long_description=readme,
     author="Chintalagiri Shashank",
