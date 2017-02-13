@@ -12,7 +12,7 @@ filesystems to expose. The exposed filesystems are specified by
 .. rubric:: Usage Example
 
 >>> # See the config module for details for setting the filesystems.
->>> # After you do :
+>>> # After you do, start the service :
 >>> from fs_server.config import SERVER_PORT
 >>> from fs_server.serve import get_resource
 >>> from twisted.internet import reactor

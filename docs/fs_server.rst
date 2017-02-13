@@ -19,3 +19,11 @@ fs_server.serve module
     :undoc-members:
     :show-inheritance:
 
+fs_server.serve_ftp module
+--------------------------
+
+.. automodule:: fs_server.serve_ftp
+    :members:
+    :private-members:
+    :undoc-members:
+    :show-inheritance:

@@ -39,3 +39,7 @@ application.setComponent(ILogObserver, FileLogObserver(logfile).emit)
 from fs_server.serve import get_service
 service = get_service()
 service.setServiceParent(application)
+
+from fs_server.serve_ftp import get_ftp_service
+ftp_service = get_ftp_service()
+ftp_service.setServiceParent(application)
