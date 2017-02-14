@@ -20,7 +20,7 @@ from twisted.cred.checkers import AllowAnonymousAccess
 from fs.opener import fsopendir
 from fs.mountfs import MountFS
 from fs.expose import fuse
-from fs.tempfs import TempFS
+from fs.osfs import OSFS
 
 from config import FTP_FILESYSTEMS
 from config import FTP_PORT
@@ -34,13 +34,12 @@ class FTPService(service.Service):
         self._fs = None
 
     def prep_filesystems(self):
-        temp_fs = TempFS()
-        temp_fs.makedir('mp')
+        mountfs = OSFS('/mnt/tendril-ftp-mp')
         stage = MountFS()
         for mp, root in FTP_FILESYSTEMS:
             fso = fsopendir(root, writeable=False)
             stage.mount(mp, fso)
-        self._fs = fuse.mount(stage, temp_fs.getsyspath('mp'))
+        self._fs = fuse.mount(stage, mountfs.getsyspath('/'))
         print self._fs.path
         return
 
