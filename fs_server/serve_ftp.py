@@ -51,7 +51,7 @@ class FTPService(service.Service):
         self._port = reactor.listenTCP(self._portnum, ftp.FTPFactory(p))
 
     def stopService(self):
-        self._fs.umount()
+        self._fs.unmount()
         return self._port.stopListening()
 
 
