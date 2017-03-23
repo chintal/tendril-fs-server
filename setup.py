@@ -21,7 +21,7 @@ test_requirements = [
 ]
 
 setup(
-    name='tendril-fs-server',
+    name='tendril-server-fs',
     version='0.2.9',
     description="XML-RPC Filesystem Server using Twisted and Pyfilesystems for Tendril",
     long_description=readme,
@@ -36,7 +36,7 @@ setup(
     install_requires=requirements,
     license="MIT",
     zip_safe=False,
-    keywords='tendril-fs-server',
+    keywords='tendril',
     classifiers=[
         'Development Status :: 4 - Beta',
         "License :: OSI Approved :: MIT License",

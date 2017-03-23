@@ -4,14 +4,14 @@ Installation
 
 At the command line::
 
-    $ easy_install tendril-fs-server
+    $ easy_install tendril-server-fs
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv tendril-fs-server
-    $ pip install tendril-fs-server
+    $ mkvirtualenv tendril
+    $ pip install tendril-server-fs
 
 If you have tendril installed and available in the
-same python environment, this module's configuration 
+same python environment, this module's configuration
 file will automatically find the various exportable
 filesystems.
