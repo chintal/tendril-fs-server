@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to XML-RPC Filesystem Server for Tendril's documentation!
-=================================================================
+XML-RPC Filesystem Server using Twisted for Tendril
+===================================================
 
 Contents:
 

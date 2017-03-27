@@ -1,6 +1,6 @@
-=====================================
-XML-RPC Filesystem Server for Tendril
-=====================================
+===================================================
+XML-RPC Filesystem Server using Twisted for Tendril
+===================================================
 
 .. image:: https://img.shields.io/travis/chintal/tendril-server-fs.svg
         :target: https://travis-ci.org/chintal/tendril-server-fs

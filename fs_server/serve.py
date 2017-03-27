@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# Copyright (C) 2015 Chintalagiri Shashank
+# Copyright (C) 2015-2017 Chintalagiri Shashank
 # Released under the MIT license.
 
 """
