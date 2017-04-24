@@ -11,6 +11,8 @@ TODO : Migrate to pyfilesystem2 instead and modify the twisted FTP Factory to
   serve files from the file system object instead of FUSE mounting.
 """
 
+import os
+
 from twisted.protocols import ftp
 from twisted.application import service
 from twisted.internet import reactor
@@ -34,13 +36,15 @@ class FTPService(service.Service):
         self._fs = None
 
     def prep_filesystems(self):
-        mountfs = OSFS('/mnt/tendril-ftp-mp')
+        mpath = '/mnt/tendril-ftp-mp'
+        if os.path.ismount(mpath):
+            return
+        mountfs = OSFS(mpath)
         stage = MountFS()
         for mp, root in FTP_FILESYSTEMS:
             fso = fsopendir(root, writeable=False)
             stage.mount(mp, fso)
         self._fs = fuse.mount(stage, mountfs.getsyspath('/'))
-        print self._fs.path
         return
 
     def startService(self):
